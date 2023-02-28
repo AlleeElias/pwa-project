@@ -33,45 +33,52 @@ export function PostCreator(props) {
         setUserName(event.target.value);
     }
 
-    return <div className="vh-100">
-        <h1>Create a new post!</h1>
-        <Form onSubmit={handleSubmit}>
-            <Row>
-                <Col>
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control required onChange={handleUser} value={userName} type="text"
-                                  placeholder="Interesting Username"></Form.Control>
-                </Col>
-                <Col>
-                    <Form.Label>Type of post:</Form.Label>
-                    <Form.Select value={drop}
-                                 onChange={handleDrop}>
-                        <option value="collecting">Collection Post</option>
-                        <option value="gaming">Gaming Post</option>
-                    </Form.Select>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <Form.Label>Title</Form.Label>
-                    <Form.Control required onChange={handleTitle} value={title} type="text"
-                                  placeholder="Interesting Title"></Form.Control>
-                </Col>
-                <Col>
-                    <Form.Label>Date:</Form.Label>
-                    <Form.Control readOnly placeholder={currentDate()} value={currentDate()}></Form.Control>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <h2>No image upload :(</h2>
-                </Col>
-            </Row>
-            <Row>
-                <Button type={"submit"}>Create!</Button>
-            </Row>
-        </Form>
-    </div>
+    if (navigator.onLine) {
+        return <div className="vh-100">
+            <h1>Create a new post!</h1>
+            <Form onSubmit={handleSubmit}>
+                <Row>
+                    <Col>
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control required onChange={handleUser} value={userName} type="text"
+                                      placeholder="Interesting Username"></Form.Control>
+                    </Col>
+                    <Col>
+                        <Form.Label>Type of post:</Form.Label>
+                        <Form.Select value={drop}
+                                     onChange={handleDrop}>
+                            <option value="collecting">Collection Post</option>
+                            <option value="gaming">Gaming Post</option>
+                        </Form.Select>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Form.Label>Title</Form.Label>
+                        <Form.Control required onChange={handleTitle} value={title} type="text"
+                                      placeholder="Interesting Title"></Form.Control>
+                    </Col>
+                    <Col>
+                        <Form.Label>Date:</Form.Label>
+                        <Form.Control readOnly placeholder={currentDate()} value={currentDate()}></Form.Control>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <h2>No image upload :(</h2>
+                    </Col>
+                </Row>
+                <Row>
+                    <Button type={"submit"}>Create!</Button>
+                </Row>
+            </Form>
+        </div>
+    } else {
+        return <div className="vh-100">
+            <h1>Creating a new post?</h1>
+            <h2>Sorry, you have to be online to post!</h2>
+        </div>
+    }
 
     async function addGamingPost() {
         let newPost = {poster: userName, title: title, image: 'niks', date: currentDate()};
@@ -80,9 +87,9 @@ export function PostCreator(props) {
 
     async function addCollectionPost() {
         let newPost = {poster: userName, title: title, image: 'niks', date: currentDate()};
-        try{
+        try {
             await addDoc(collectionReference, newPost);
-        }catch (e){
+        } catch (e) {
             console.log(e);
         }
     }
