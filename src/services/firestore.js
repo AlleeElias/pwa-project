@@ -10,6 +10,9 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
-export const firestoreDB = initializeFirestore(firebaseApp, {cacheSizeBytes: CACHE_SIZE_UNLIMITED});
+export const firestoreDB = initializeFirestore(firebaseApp, {
+    cacheSizeBytes: CACHE_SIZE_UNLIMITED,
+    experimentalForceLongPolling: true
+});
 enableIndexedDbPersistence(firestoreDB).then(r => console.log("persisted"));
 console.log("initialized firebase connection");
