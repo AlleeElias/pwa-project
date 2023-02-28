@@ -8,26 +8,52 @@ export function Post(props) {
     const {post} = props;
     const [isOn, setIsOn] = useState(false);
 
-    return <div className={'col-sm-12 col-md-6 col-lg-4'}>
-        <Card className={'bg-black'} onClick={() => setIsOn(!isOn)} border={'light'}>
-            <Card.Title className={'text-light'}>{post.title}</Card.Title>
-            <PostIMG image={post.image}></PostIMG>
-            <PostText date={post.date}></PostText>
-            <Modal className={'bg-dark'} show={isOn} size="lg"
-                   aria-labelledby="contained-modal-title-vcenter"
-                   centered>
-                <Modal.Header className={'bg-black text-light'}>{post.title}
-                    <Button variant={"danger"}
-                            onClick={() => setIsOn(!isOn)}>X</Button></Modal.Header>
-                <Modal.Body className={'bg-black text-light'}>
-                    <PostIMG image={post.image}></PostIMG>
-                </Modal.Body>
-                <Modal.Footer className={'bg-black text-light'}>
-                    Posted by {post.poster ? post.poster : "System Admin"} on {post.date ? post.date : "Date Unknown"}
-                </Modal.Footer>
-            </Modal>
-        </Card>
-    </div>
+    if (navigator.onLine) {
+        return <div className={'col-sm-12 col-md-6 col-lg-4'}>
+            <Card className={'bg-black'} onClick={() => setIsOn(!isOn)} border={'light'}>
+                <Card.Title className={'text-light'}>{post.title}</Card.Title>
+                <PostIMG image={post.image}></PostIMG>
+                <PostText date={post.date}></PostText>
+                <Modal className={'bg-dark'} show={isOn} size="lg"
+                       aria-labelledby="contained-modal-title-vcenter"
+                       centered>
+                    <Modal.Header className={'bg-black text-light'}>{post.title}
+                        <Button variant={"danger"}
+                                onClick={() => setIsOn(!isOn)}>X</Button></Modal.Header>
+                    <Modal.Body className={'bg-black text-light'}>
+                        <PostIMG image={post.image}></PostIMG>
+                    </Modal.Body>
+                    <Modal.Footer className={'bg-black text-light'}>
+                        Posted
+                        by {post.poster ? post.poster : "System Admin"} on {post.date ? post.date : "Date Unknown"}
+                    </Modal.Footer>
+                </Modal>
+            </Card>
+        </div>
+    } else {
+        return <div className={'col-sm-12 col-md-6 col-lg-4'}>
+            <Card className={'bg-black'} onClick={() => setIsOn(!isOn)} border={'light'}>
+                <Card.Title className={'text-light'}>{post.title}(Offline)</Card.Title>
+                <PostIMG image={post.image}></PostIMG>
+                <PostText date={post.date}></PostText>
+                <Modal className={'bg-dark'} show={isOn} size="lg"
+                       aria-labelledby="contained-modal-title-vcenter"
+                       centered>
+                    <Modal.Header className={'bg-black text-light'}>{post.title}(Offline)
+                        <Button variant={"danger"}
+                                onClick={() => setIsOn(!isOn)}>X</Button></Modal.Header>
+                    <Modal.Body className={'bg-black text-light'}>
+                        <PostIMG image={post.image}></PostIMG>
+                    </Modal.Body>
+                    <Modal.Footer className={'bg-black text-light'}>
+                        Posted
+                        by {post.poster ? post.poster : "System Admin"} on {post.date ? post.date : "Date Unknown"}
+                        Please keep in mind you are viewing an offline version!
+                    </Modal.Footer>
+                </Modal>
+            </Card>
+        </div>
+    }
 }
 
 //Component 4
@@ -39,7 +65,13 @@ function PostText(props) {
 //Component 8
 function PostIMG(props) {
     const {image} = props;
-    return <Card.Img variant={'bottom'} src={image !== 'niks' ? image : defaultPIC}
-                     alt={image !== 'niks' ? image : "Very much nothing!"}>
-    </Card.Img>
+    if (navigator.onLine) {
+        return <Card.Img variant={'bottom'} src={image !== 'niks' ? image : defaultPIC}
+                         alt={image !== 'niks' ? image : "Very much nothing!"}>
+        </Card.Img>
+    } else {
+        //TODO: move images to src folder
+        return <Card.Img variant={'bottom'} src={'images/empty.jpeg'} alt={'Iets offline!'}>
+        </Card.Img>
+    }
 }
