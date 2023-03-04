@@ -1,7 +1,7 @@
 {
   "short_name": "Gaming App",
   "name": "Gaming App PWA Implementation",
-  "description": "This app is a PWA implementation of an existing react app to show basic understanding of PWA prinicples.",
+  "description": "This app is a PWA implementation of an existing react app to show basic understanding of PWA basics.",
   "icons": [
     {
       "src": "favicon.ico",
