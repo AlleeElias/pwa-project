@@ -71,7 +71,7 @@ function PostIMG(props) {
         </Card.Img>
     } else {
         //TODO: move images to src folder
-        return <Card.Img variant={'bottom'} src={'images/empty.jpeg'} alt={'Iets offline!'}>
+        return <Card.Img variant={'bottom'} src={'/images/empty.jpeg'} alt={'Iets offline!'}>
         </Card.Img>
     }
 }
